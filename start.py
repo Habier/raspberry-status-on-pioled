@@ -10,7 +10,7 @@ from PIL import ImageFont
 import subprocess
 
 # Raspberry Pi pin configuration:
-RST = None  # on the PiOLED this pin isnt used
+RST = None  # on the PiOLED this pin isn't used
 # Note the following are only used with SPI:
 DC = 23
 SPI_PORT = 0
