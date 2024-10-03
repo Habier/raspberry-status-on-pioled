@@ -59,6 +59,7 @@ getCPU = "top -bn1 | grep load | awk '{printf \"CPU Load: %.2f\", $(NF-2)}'"
 getRAM = "free -m | awk 'NR==2{printf \"Mem: %s/%sMB %.2f%%\", $3,$2,$3*100/$2 }'"
 getDisk = "df -h | awk '$NF==\"/\"{printf \"Disk: %d/%dGB %s\", $3,$2,$5}'"
 getTemp = "cat /sys/class/thermal/thermal_zone0/temp"
+sleepTime = 3
 while True:
     # Draw a black filled box to clear the image.
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
@@ -79,4 +80,4 @@ while True:
     # Display image.
     display.image(image)
     display.display()
-    time.sleep(1)
+    time.sleep(sleepTime)
