@@ -7,14 +7,41 @@ The oled screen will display IP, CPU load, Memory Usage, Disk usage and CPU temp
 
 # Requirements
 
-```commandline
+```shell
 sudo apt-get install libopenjp2-7
 ```
 
 You will need to enable i2c
 
-```commandline
+```shell
 sudo raspi-config
 ```
 
+# Run as service
 
+```shell
+sudo nano /etc/systemd/system/oled-status.service
+```
+
+```text
+[Unit]
+Description=Python Script for OLED Status Display
+After=network.target
+
+[Service]
+ExecStart=/home/pi/oled-status/venv/bin/python3 /home/pi/oled-status/start.py
+WorkingDirectory=/home/pi
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Now Enable and run it
+
+```shell
+sudo systemctl daemon-reload && sudo systemctl enable oled-status.service && sudo systemctl start oled-status.service
+```

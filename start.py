@@ -1,6 +1,5 @@
 import time
 
-import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
 
 from PIL import Image
@@ -11,10 +10,14 @@ import subprocess
 
 # Raspberry Pi pin configuration:
 RST = None  # on the PiOLED this pin isn't used
+
 # Note the following are only used with SPI:
 DC = 23
 SPI_PORT = 0
 SPI_DEVICE = 0
+
+# Time between redrawing
+sleepTime = 5
 
 # 128x32 display with hardware I2C:
 display = Adafruit_SSD1306.SSD1306_128_32(rst=RST)
@@ -59,7 +62,7 @@ getCPU = "top -bn1 | grep load | awk '{printf \"CPU Load: %.2f\", $(NF-2)}'"
 getRAM = "free -m | awk 'NR==2{printf \"Mem: %s/%sMB %.2f%%\", $3,$2,$3*100/$2 }'"
 getDisk = "df -h | awk '$NF==\"/\"{printf \"Disk: %d/%dGB %s\", $3,$2,$5}'"
 getTemp = "cat /sys/class/thermal/thermal_zone0/temp"
-sleepTime = 3
+
 while True:
     # Draw a black filled box to clear the image.
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
